@@ -1,4 +1,10 @@
-<style>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>わたしの絵本（PNG完全版）</title>
+    <style>
         /* 全体の背景と文字の設定 */
         body {
             font-family: 'Helvetica Neue', Arial, sans-serif;
@@ -17,7 +23,7 @@
         .book-container {
             width: 100%;
             max-width: 480px;
-            height: 660px; /* 少し高さを出してゆとりを持たせたわ */
+            height: 660px;
             position: relative;
             perspective: 2000px;
         }
@@ -32,11 +38,11 @@
             background-color: white;
             box-shadow: 0 10px 30px rgba(0,0,0,0.08);
             border-radius: 10px;
-            padding: 25px 25px 15px 25px; /* 下側の余白を調整 */
+            padding: 25px 25px 15px 25px;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
-            justify-content: space-between; /* 上下に綺麗に配分 */
+            justify-content: space-between;
             align-items: center;
             text-align: center;
             
@@ -57,17 +63,16 @@
             pointer-events: none;
         }
 
-        /* ──── 【ここを修正して画像サイズを柔軟にしたわ】 ──── */
         /* 挿絵が入るエリア */
         .illustration {
             width: 100%;
-            height: 280px; /* 固定高さを少し控えめにしてスペースを確保 */
-            max-height: 45vh; /* 画面サイズに合わせて縮むように */
+            height: 280px;
+            max-height: 45vh;
             border-radius: 8px;
             overflow: hidden;
             box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
             background-color: #f9f6f0;
-            flex-shrink: 0; /* 潰れないように固定 */
+            flex-shrink: 0;
         }
         .illustration img {
             width: 100%;
@@ -80,20 +85,19 @@
             font-size: 15px;
             line-height: 1.6;
             margin: 15px 0;
-            flex-grow: 1; /* 余ったスペースを文章が使う */
+            flex-grow: 1;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
         }
 
-        /* ──── 【ノンブルをしっかり固定して目立たせたわ】 ──── */
         /* ページ番号（ノンブル）のスタイル */
         .page-number {
             font-size: 13px;
             color: #888;
             font-weight: bold;
-            margin: 5px 0 10px 0; /* 位置を少し上げてボタンの上に固定 */
+            margin: 5px 0 10px 0;
             flex-shrink: 0;
         }
 
@@ -130,3 +134,280 @@
         }
         .cover h1 { font-size: 28px; color: #2c5270; margin-top: 20px; }
     </style>
+</head>
+<body>
+
+    <div class="book-container">
+
+        <!-- ─── 表紙（0ページ目） ─── -->
+        <div class="page cover active" id="p0">
+            <h1>そらのバルーン船</h1>
+            <div class="illustration">
+                <img src="cover.png" alt="表紙イラスト">
+            </div>
+            <p class="story-text">さく・え：つっきぃ</p>
+            <button class="btn" onclick="nextPage(0)">ほんを よむ</button>
+        </div>
+
+        <!-- ─── 1ページ目 ─── -->
+        <div class="page" id="p1">
+            <div class="illustration"><img src="page1.png" alt="1ページ目のイラスト"></div>
+            <p class="story-text">ここに1ページ目の文章を書くのよ。</p>
+            <div class="page-number">1</div>
+            <div class="button-group">
+                <button class="btn back" onclick="prevPage(1)">もどる</button>
+                <button class="btn" onclick="nextPage(1)">つぎへ</button>
+            </div>
+        </div>
+
+        <!-- ─── 2ページ目 ─── -->
+        <div class="page" id="p2">
+            <div class="illustration"><img src="page2.png" alt="2ページ目のイラスト"></div>
+            <p class="story-text">ここに2ページ目の文章を書くのよ。</p>
+            <div class="page-number">2</div>
+            <div class="button-group">
+                <button class="btn back" onclick="prevPage(2)">もどる</button>
+                <button class="btn" onclick="nextPage(2)">つぎへ</button>
+            </div>
+        </div>
+
+        <!-- ─── 3ページ目 ─── -->
+        <div class="page" id="p3">
+            <div class="illustration"><img src="page3.png" alt="3ページ目のイラスト"></div>
+            <p class="story-text">ここに3ページ目の文章を書くのよ。</p>
+            <div class="page-number">3</div>
+            <div class="button-group">
+                <button class="btn back" onclick="prevPage(3)">もどる</button>
+                <button class="btn" onclick="nextPage(3)">つぎへ</button>
+            </div>
+        </div>
+
+        <!-- ─── 4ページ目 ─── -->
+        <div class="page" id="p4">
+            <div class="illustration"><img src="page4.png" alt="4ページ目のイラスト"></div>
+            <p class="story-text">ここに4ページ目の文章を書くのよ。</p>
+            <div class="page-number">4</div>
+            <div class="button-group">
+                <button class="btn back" onclick="prevPage(4)">もどる</button>
+                <button class="btn" onclick="nextPage(4)">つぎへ</button>
+            </div>
+        </div>
+
+        <!-- ─── 5ページ目 ─── -->
+        <div class="page" id="p5">
+            <div class="illustration"><img src="page5.png" alt="5ページ目のイラスト"></div>
+            <p class="story-text">ここに5ページ目の文章を書くのよ。</p>
+            <div class="page-number">5</div>
+            <div class="button-group">
+                <button class="btn back" onclick="prevPage(5)">もどる</button>
+                <button class="btn" onclick="nextPage(5)">つぎへ</button>
+            </div>
+        </div>
+
+        <!-- ─── 6ページ目 ─── -->
+        <div class="page" id="p6">
+            <div class="illustration"><img src="page6.png" alt="6ページ目のイラスト"></div>
+            <p class="story-text">ここに6ページ目の文章を書くのよ。</p>
+            <div class="page-number">6</div>
+            <div class="button-group">
+                <button class="btn back" onclick="prevPage(6)">もどる</button>
+                <button class="btn" onclick="nextPage(6)">つぎへ</button>
+            </div>
+        </div>
+
+        <!-- ─── 7ページ目 ─── -->
+        <div class="page" id="p7">
+            <div class="illustration"><img src="page7.png" alt="7ページ目のイラスト"></div>
+            <p class="story-text">ここに7ページ目の文章を書くのよ。</p>
+            <div class="page-number">7</div>
+            <div class="button-group">
+                <button class="btn back" onclick="prevPage(7)">もどる</button>
+                <button class="btn" onclick="nextPage(7)">つぎへ</button>
+            </div>
+        </div>
+
+        <!-- ─── 8ページ目 ─── -->
+        <div class="page" id="p8">
+            <div class="illustration"><img src="page8.png" alt="8ページ目のイラスト"></div>
+            <p class="story-text">ここに8ページ目の文章を書くのよ。</p>
+            <div class="page-number">8</div>
+            <div class="button-group">
+                <button class="btn back" onclick="prevPage(8)">もどる</button>
+                <button class="btn" onclick="nextPage(8)">つぎへ</button>
+            </div>
+        </div>
+
+        <!-- ─── 9ページ目 ─── -->
+        <div class="page" id="p9">
+            <div class="illustration"><img src="page9.png" alt="9ページ目のイラスト"></div>
+            <p class="story-text">ここに9ページ目の文章を書くのよ。</p>
+            <div class="page-number">9</div>
+            <div class="button-group">
+                <button class="btn back" onclick="prevPage(9)">もどる</button>
+                <button class="btn" onclick="nextPage(9)">つぎへ</button>
+            </div>
+        </div>
+
+        <!-- ─── 10ページ目 ─── -->
+        <div class="page" id="p10">
+            <div class="illustration"><img src="page10.png" alt="10ページ目のイラスト"></div>
+            <p class="story-text">ここに10ページ目の文章を書くのよ。</p>
+            <div class="page-number">10</div>
+            <div class="button-group">
+                <button class="btn back" onclick="prevPage(10)">もどる</button>
+                <button class="btn" onclick="nextPage(10)">つぎへ</button>
+            </div>
+        </div>
+
+        <!-- ─── 11ページ目 ─── -->
+        <div class="page" id="p11">
+            <div class="illustration"><img src="page11.png" alt="11ページ目のイラスト"></div>
+            <p class="story-text">ここに11ページ目の文章を書くのよ。</p>
+            <div class="page-number">11</div>
+            <div class="button-group">
+                <button class="btn back" onclick="prevPage(11)">もどる</button>
+                <button class="btn" onclick="nextPage(11)">つぎへ</button>
+            </div>
+        </div>
+
+        <!-- ─── 12ページ目 ─── -->
+        <div class="page" id="p12">
+            <div class="illustration"><img src="page12.png" alt="12ページ目のイラスト"></div>
+            <p class="story-text">ここに12ページ目の文章を書くのよ。</p>
+            <div class="page-number">12</div>
+            <div class="button-group">
+                <button class="btn back" onclick="prevPage(12)">もどる</button>
+                <button class="btn" onclick="nextPage(12)">つぎへ</button>
+            </div>
+        </div>
+
+        <!-- ─── 13ページ目 ─── -->
+        <div class="page" id="p13">
+            <div class="illustration"><img src="page13.png" alt="13ページ目のイラスト"></div>
+            <p class="story-text">ここに13ページ目の文章を書くのよ。</p>
+            <div class="page-number">13</div>
+            <div class="button-group">
+                <button class="btn back" onclick="prevPage(13)">もどる</button>
+                <button class="btn" onclick="nextPage(13)">つぎへ</button>
+            </div>
+        </div>
+
+        <!-- ─── 14ページ目 ─── -->
+        <div class="page" id="p14">
+            <div class="illustration"><img src="page14.png" alt="14ページ目のイラスト"></div>
+            <p class="story-text">ここに14ページ目の文章を書くのよ。</p>
+            <div class="page-number">14</div>
+            <div class="button-group">
+                <button class="btn back" onclick="prevPage(14)">もどる</button>
+                <button class="btn" onclick="nextPage(14)">つぎへ</button>
+            </div>
+        </div>
+
+        <!-- ─── 15ページ目 ─── -->
+        <div class="page" id="p15">
+            <div class="illustration"><img src="page15.png" alt="15ページ目のイラスト"></div>
+            <p class="story-text">ここに15ページ目の文章を書くのよ。</p>
+            <div class="page-number">15</div>
+            <div class="button-group">
+                <button class="btn back" onclick="prevPage(15)">もどる</button>
+                <button class="btn" onclick="nextPage(15)">つぎへ</button>
+            </div>
+        </div>
+
+        <!-- ─── 16ページ目 ─── -->
+        <div class="page" id="p16">
+            <div class="illustration"><img src="page16.png" alt="16ページ目のイラスト"></div>
+            <p class="story-text">ここに16ページ目の文章を書くのよ。</p>
+            <div class="page-number">16</div>
+            <div class="button-group">
+                <button class="btn back" onclick="prevPage(16)">もどる</button>
+                <button class="btn" onclick="nextPage(16)">つぎへ</button>
+            </div>
+        </div>
+
+        <!-- ─── 17ページ目 ─── -->
+        <div class="page" id="p17">
+            <div class="illustration"><img src="page17.png" alt="17ページ目のイラスト"></div>
+            <p class="story-text">ここに17ページ目の文章を書くのよ。</p>
+            <div class="page-number">17</div>
+            <div class="button-group">
+                <button class="btn back" onclick="prevPage(17)">もどる</button>
+                <button class="btn" onclick="nextPage(17)">つぎへ</button>
+            </div>
+        </div>
+
+        <!-- ─── 18ページ目 ─── -->
+        <div class="page" id="p18">
+            <div class="illustration"><img src="page18.png" alt="18ページ目のイラスト"></div>
+            <p class="story-text">ここに18ページ目の文章を書くのよ。</p>
+            <div class="page-number">18</div>
+            <div class="button-group">
+                <button class="btn back" onclick="prevPage(18)">もどる</button>
+                <button class="btn" onclick="nextPage(18)">つぎへ</button>
+            </div>
+        </div>
+
+        <!-- ─── 19ページ目 ─── -->
+        <div class="page" id="p19">
+            <div class="illustration"><img src="page19.png" alt="19ページ目のイラスト"></div>
+            <p class="story-text">ここに19ページ目の文章を書くのよ。</p>
+            <div class="page-number">19</div>
+            <div class="button-group">
+                <button class="btn back" onclick="prevPage(19)">もどる</button>
+                <button class="btn" onclick="nextPage(19)">つぎへ</button>
+            </div>
+        </div>
+
+        <!-- ─── 20ページ目（最後のページ） ─── -->
+        <div class="page" id="p20">
+            <div class="illustration"><img src="page20.png" alt="20ページ目のイラスト"></div>
+            <p class="story-text">おしまい。物語の結末をここに書いてね。</p>
+            <div class="page-number">20</div>
+            <div class="button-group">
+                <button class="btn back" onclick="prevPage(20)">も定る</button>
+                <button class="btn" onclick="goToCover()">はじめから読む</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ページをめくるプログラム -->
+    <script>
+        function nextPage(currentPageId) {
+            const currentPage = document.getElementById('p' + currentPageId);
+            const nextPage = document.getElementById('p' + (currentPageId + 1));
+            
+            if (currentPage) {
+                currentPage.classList.add('flipped');
+                currentPage.classList.remove('active');
+            }
+            if (nextPage) {
+                nextPage.classList.add('active');
+            }
+        }
+
+        function prevPage(currentPageId) {
+            const currentPage = document.getElementById('p' + currentPageId);
+            const prevPage = document.getElementById('p' + (currentPageId - 1));
+            
+            if (currentPage) {
+                currentPage.classList.remove('active');
+            }
+            if (prevPage) {
+                prevPage.classList.remove('flipped');
+                prevPage.classList.add('active');
+            }
+        }
+
+        function goToCover() {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.classList.remove('flipped');
+                page.classList.remove('active');
+            });
+            document.getElementById('p0').classList.add('active');
+        }
+    </script>
+
+</body>
+</html>
