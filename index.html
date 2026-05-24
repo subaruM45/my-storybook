@@ -5,46 +5,211 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>わたしの絵本</title>
     <style>
+        /* 全体の背景と文字の設定 */
         body {
             font-family: 'Helvetica Neue', Arial, sans-serif;
             background-color: #fcfaf2; /* 優しい紙の色 */
             color: #333;
-            text-align: center;
-            padding: 50px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
         }
-        .container {
+
+        /* 絵本の外枠（ステージ） */
+        .book-container {
+            width: 100%;
             max-width: 600px;
-            margin: 0 auto;
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            height: 750px;
+            position: relative;
+            perspective: 1500px; /* 3D効果の奥行き */
         }
-        h1 { font-size: 24px; color: #555; }
-        p { font-size: 18px; line-height: 1.8; margin: 20px 0; }
-        .next-btn {
+
+        /* 各ページ共通のスタイル */
+        .page {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            padding: 40px 30px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            
+            /* めくるアニメーションの設定 */
+            transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+            transform-origin: left center; /* 左側を軸にしてめくる */
+            backface-visibility: hidden; /* 裏返ったときに見えなくする */
+            z-index: 1;
+        }
+
+        /* 挿絵（画像）が入るエリアの設定 */
+        .illustration {
+            width: 100%;
+            height: 350px;
+            background-color: #f0f0f0; /* 画像がない時のグレー背景 */
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #aaa;
+            font-size: 14px;
+            overflow: hidden;
+        }
+        .illustration img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 枠線に綺麗に合わせる */
+        }
+
+        /* 文章のスタイル */
+        .story-text {
+            font-size: 18px;
+            line-height: 1.8;
+            margin: 20px 0;
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* ボタンのスタイル */
+        .btn {
             display: inline-block;
-            padding: 10px 20px;
+            padding: 12px 30px;
             background-color: #88b04b;
             color: white;
-            text-decoration: none;
-            border-radius: 20px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
             font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: background 0.3s;
+        }
+        .btn:hover { background-color: #77a03c; }
+        .btn.back { background-color: #aaa; }
+        .btn.back:hover { background-color: #999; }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+        }
+
+        /* 表紙専用の装飾 */
+        .cover {
+            background-color: #e8f4f8; /* 表紙だけ少し色を変える */
+            border-left: 8px solid #5a8da3; /* 本の背表紙っぽく */
+        }
+        .cover h1 { font-size: 32px; color: #2c5270; margin-top: 40px; }
+
+        /* めくられて「戻った（見えている）」状態の重なり順 */
+        .active { z-index: 10; }
+
+        /* 左にめくられて画面から消えるアニメーション */
+        .flipped {
+            transform: rotateY(-180deg);
+            z-index: 0;
+            pointer-events: none; /* めくられた後はボタンを触れなくする */
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>タイトル：そらのバルーン</h1>
-        
-        <!-- ここに絵本の文章を書くわよ -->
-        <p>むかしむかし、あるところに、ちいさなネズミのきょうだいがいました。<br>
-        きょうだいは、まあるい風船にのって旅にでることにしました。</p>
-        
-        <!-- 次のページへのリンク（今はまだ動かなくてOK） -->
-        <a href="#" class="next-btn">つぎへ</a>
+    <div class="book-container">
+
+        <!-- ─── 表紙 ─── -->
+        <div class="page cover active" id="p0">
+            <h1>そらのバルーン船</h1>
+            <div class="illustration">
+                <!-- ここに表紙の画像（Seikeさん風の素敵な絵など）を入れられるわよ -->
+                <span>【ここに表紙のイラストが入るわ】</span>
+            </div>
+            <p class="story-text">さく・え：つっきぃ</p>
+            <button class="btn" onclick="nextPage(0)">ほんを よむ</button>
+        </div>
+
+        <!-- ─── 1ページ目 ─── -->
+        <div class="page" id="p1">
+            <div class="illustration">
+                <span>【ここに1ページ目のイラストが入るわ】</span>
+            </div>
+            <p class="story-text">
+                むかしむかし、あるところに、ちいさなネズミのきょうだいがいました。<br>
+                きょうだいは、まあるい風船の船にのって、遠い北の街へ旅にでることにしました。
+            </p>
+            <div class="button-group">
+                <button class="btn back" onclick="prevPage(1)">もどる</button>
+                <button class="btn" onclick="nextPage(1)">つぎへ</button>
+            </div>
+        </div>
+
+        <!-- ─── 2ページ目 ─── -->
+        <div class="page" id="p2">
+            <div class="illustration">
+                <span>【ここに2ページ目のイラストが入るわ】</span>
+            </div>
+            <p class="story-text">
+                冷たい風がふいてきましたが、風船の船はふわふわと進みます。<br>
+                「お星さまが近くに見えるね！」ときょうだいは大喜びです。
+            </p>
+            <div class="button-group">
+                <button class="btn back" onclick="prevPage(2)">もどる</button>
+                <button class="btn" onclick="goToCover()">はじめから読む</button>
+            </div>
+        </div>
+
     </div>
+
+    <!-- ページをめくるための仕組み（JavaScript） -->
+    <script>
+        function nextPage(currentPageId) {
+            const currentPage = document.getElementById('p' + currentPageId);
+            const nextPage = document.getElementById('p' + (currentPageId + 1));
+            
+            if (currentPage) {
+                currentPage.classList.add('flipped');
+                currentPage.classList.remove('active');
+            }
+            if (nextPage) {
+                nextPage.classList.add('active');
+            }
+        }
+
+        function prevPage(currentPageId) {
+            const currentPage = document.getElementById('p' + currentPageId);
+            const prevPage = document.getElementById('p' + (currentPageId - 1));
+            
+            if (currentPage) {
+                currentPage.classList.remove('active');
+            }
+            if (prevPage) {
+                prevPage.classList.remove('flipped');
+                prevPage.classList.add('active');
+            }
+        }
+
+        function goToCover() {
+            // すべてのページの「めくられた状態」をリセットして表紙に戻す
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.classList.remove('flipped');
+                page.classList.remove('active');
+            });
+            document.getElementById('p0').classList.add('active');
+        }
+    </script>
 
 </body>
 </html>
